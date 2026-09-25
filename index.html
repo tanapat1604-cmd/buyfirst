@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="th">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BuyFirst — ซื้ออย่างมีแผน</title>
+<style>
+:root{font-family:Tahoma,system-ui,sans-serif;color:#233c34;background:#f4f6f2;font-size:15px}*{box-sizing:border-box}body{margin:0}header{padding:24px 6%;border-bottom:1px solid #dae2db;display:flex;align-items:center;justify-content:space-between;background:#fff}header strong{font-size:25px;color:#267357}header span{color:#64766b;font-size:13px}main{max-width:1120px;margin:auto;padding:40px 24px}h1{font-size:clamp(28px,5vw,42px);margin:8px 0 12px;letter-spacing:-1px}p{line-height:1.8;color:#64766b}.eyebrow{font-size:12px;font-weight:bold;letter-spacing:2px;color:#267357}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:28px 0}.stat,.panel{background:white;border:1px solid #dfe5dc;border-radius:18px;padding:24px}.stat small{display:block;color:#64766b;margin-bottom:12px}.stat strong{font-size:25px}.layout{display:grid;grid-template-columns:330px 1fr;gap:24px;align-items:start}h2{font-size:20px;margin:0 0 20px}label{display:block;font-size:13px;margin:16px 0 7px}input,select,button{font:inherit}input,select{width:100%;padding:11px;border:1px solid #cbd7ce;border-radius:9px;background:#fff;color:#233c34}button{border:0;border-radius:9px;padding:11px 15px;cursor:pointer;background:#eaf0e9;color:#254d3a}button:hover{filter:brightness(.95)}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #e8ae4c;outline-offset:2px}.primary{background:#246b50;color:white;width:100%;margin-top:20px}.row{display:flex;gap:10px;align-items:center}.row>*{flex:1}.toolbar{display:flex;justify-content:space-between;gap:15px;align-items:center;margin:24px 0 16px}.toolbar h2{margin:0}.toolbar select{width:auto;max-width:170px}.item{background:white;border:1px solid #dfe5dc;border-radius:15px;padding:20px;margin-bottom:12px}.itemhead{display:flex;gap:12px;align-items:start}.rank{background:#eaf1dc;color:#577030;border-radius:10px;padding:9px;font-weight:bold;min-width:40px;text-align:center}.item h3{margin:0 0 6px;overflow-wrap:anywhere;font-size:18px}.detail{flex:1;min-width:0}.price{font-weight:bold;white-space:nowrap}.meta{font-size:12px;color:#64766b;line-height:1.8}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}.actions button,.actions a{font-size:12px;padding:8px 11px}.actions a{color:#246b50}.tag{display:inline-block;font-size:11px;border-radius:5px;padding:3px 8px;background:#edf3df;color:#526d2f;margin-top:8px}.over{background:#fff0de;color:#95612c}.empty{text-align:center;padding:45px 20px;border:1px dashed #c3d1c4;border-radius:16px;color:#64766b;line-height:1.9}.hint{font-size:12px;margin-bottom:0}#notice{color:#92561d;font-size:13px}footer{text-align:center;color:#76867b;font-size:12px;margin:32px 0}#cancel{width:100%;margin-top:8px} [hidden]{display:none!important}@media(max-width:750px){.layout{grid-template-columns:1fr}main{padding:25px 16px}.stats{gap:8px}.stat{padding:16px 12px}.stat strong{font-size:19px}header{padding:20px}.price{font-size:14px}.item{padding:16px}}
+</style></head>
+<body><header><strong>◈ BuyFirst</strong><span>ซื้ออย่างมีแผน</span></header><main>
+<div class="eyebrow">MAKE ROOM FOR WHAT MATTERS</div><h1>ของที่อยากได้… ชิ้นไหนก่อนดี?</h1><p>เก็บสิ่งที่อยากซื้อ ให้ความสำคัญ แล้ววางแผนให้พอดีกับงบ</p>
+<div class="stats"><div class="stat"><small>รายการที่อยากได้</small><strong id="count">0 ชิ้น</strong></div><div class="stat"><small>ราคารวมที่ยังไม่ซื้อ</small><strong id="total">฿0</strong></div><div class="stat"><small>อยู่ในแผนตามงบ</small><strong id="planned">0 ชิ้น</strong></div></div>
+<div id="notice" role="status" aria-live="polite"></div>
+<div class="layout"><section class="panel"><h2 id="formtitle">เพิ่มของที่อยากได้</h2><form id="itemform">
+<label for="name">ชื่อของ</label><input id="name" maxlength="120" required placeholder="เช่น หูฟังสำหรับเรียน">
+<label for="price">ราคา (บาท)</label><input id="price" type="number" min="0" max="100000000" step="0.01" required placeholder="0">
+<label for="link">ลิงก์สินค้า (ไม่จำเป็น)</label><input id="link" type="url" placeholder="https://...">
+<label for="need">ความจำเป็น</label><select id="need"><option value="1">1 — ยังไม่จำเป็น</option><option value="2">2 — มีไว้ก็ดี</option><option value="3" selected>3 — ได้ใช้งาน</option><option value="4">4 — จำเป็นมาก</option><option value="5">5 — ขาดไม่ได้</option></select>
+<label for="urgency">ความเร่งด่วน</label><select id="urgency"><option value="1">1 — รอได้</option><option value="2">2 — อีกหลายเดือน</option><option value="3" selected>3 — ภายในเดือนนี้</option><option value="4">4 — เร็ว ๆ นี้</option><option value="5">5 — ต้องใช้ทันที</option></select>
+<label for="want">ความอยากได้</label><select id="want"><option value="1">1 — นิดหน่อย</option><option value="2">2 — สนใจ</option><option value="3" selected>3 — อยากได้</option><option value="4">4 — อยากได้มาก</option><option value="5">5 — ชอบที่สุด</option></select>
+<button class="primary" type="submit" id="submit">＋ เพิ่มรายการ</button><button id="cancel" type="button" hidden>ยกเลิกการแก้ไข</button></form></section>
+<section><div class="panel"><h2>งบสำหรับแผนนี้</h2><label for="budget">กำหนดจำนวนเงินที่พร้อมใช้ (บาท)</label><input id="budget" type="number" min="0" max="100000000" step="0.01" value="0"><p class="hint">เลือกของตามอันดับเท่าที่งบรวมซื้อได้ หากชิ้นไหนเกินงบที่เหลือ จะข้ามไปพิจารณาชิ้นถัดไป การติ๊กซื้อแล้วจะหักราคาจากงบนี้</p></div>
+<div class="toolbar"><h2>ลิสต์ของคุณ</h2><select id="filter" aria-label="แสดงรายการ"><option value="pending">ยังไม่ได้ซื้อ</option><option value="done">ซื้อแล้ว</option><option value="all">ทั้งหมด</option></select></div>
+<div id="list"></div><p class="hint">คะแนนเต็ม 100 = ความจำเป็น 50% + ความเร่งด่วน 30% + ความอยากได้ 20% หากคะแนนเท่ากัน จะเรียงราคาต่ำก่อน</p></section></div>
+<footer>ข้อมูลเก็บในเบราว์เซอร์นี้ • ไม่ซิงก์ข้ามเครื่อง • ล้างข้อมูลเว็บไซต์แล้วรายการจะหาย</footer></main>
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const key = 'buyfirst-v1';
+let state = {budget:0,items:[]}, editing = null;
+const money = n => new Intl.NumberFormat('th-TH',{style:'currency',currency:'THB',maximumFractionDigits:2}).format(n);
+const score = i => i.need*10+i.urgency*6+i.want*4;
+function safeUrl(s){try{const u=new URL(s);return ['https:','http:'].includes(u.protocol)?u.href:''}catch{return ''}}
+try{
+ const saved=JSON.parse(localStorage.getItem(key)||'null');
+ if(saved&&Number.isFinite(saved.budget)&&saved.budget>=0&&Array.isArray(saved.items)){
+ state.budget=saved.budget;
+ state.items=saved.items.filter(i=>typeof i.id==='string'&&typeof i.name==='string'&&Number.isFinite(i.price)&&i.price>=0&&['need','urgency','want'].every(k=>Number.isInteger(i[k])&&i[k]>=1&&i[k]<=5)).map(i=>({...i,done:!!i.done,link:safeUrl(i.link)}));
+ }
+}catch{$('notice').textContent='ไม่สามารถอ่านข้อมูลเดิมได้ เริ่มรายการใหม่ได้ในหน้านี้'}
+$('budget').value=state.budget;
+function save(){try{localStorage.setItem(key,JSON.stringify(state));$('notice').textContent='บันทึกแล้ว'}catch{$('notice').textContent='บันทึกข้อมูลไม่ได้ รายการจะอยู่ชั่วคราวจนกว่าจะปิดหรือรีเฟรชหน้านี้'}}
+function node(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e}
+function reset(){editing=null;$('itemform').reset();$('formtitle').textContent='เพิ่มของที่อยากได้';$('submit').textContent='＋ เพิ่มรายการ';$('cancel').hidden=true}
+function render(){
+ const pending=state.items.filter(i=>!i.done).sort((a,b)=>score(b)-score(a)||a.price-b.price||a.id.localeCompare(b.id));
+ let remaining=state.budget;const plan=new Set();
+ pending.forEach(i=>{if(i.price<=remaining){plan.add(i.id);remaining=Math.round((remaining-i.price)*100)/100}});
+ $('count').textContent=pending.length+' ชิ้น';$('total').textContent=money(pending.reduce((s,i)=>s+i.price,0));$('planned').textContent=plan.size+' ชิ้น';
+ const mode=$('filter').value;
+ const items=mode==='pending'?pending:mode==='done'?state.items.filter(i=>i.done):[...pending,...state.items.filter(i=>i.done)];
+ $('list').replaceChildren();
+ if(!items.length){$('list').append(node('div','empty',mode==='done'?'ยังไม่มีรายการที่ซื้อแล้ว':'เริ่มต้นด้วยของที่อยากได้สักชิ้น แล้วมาวางแผนกัน'));return}
+ items.forEach(i=>{
+ const card=node('article','item'),head=node('div','itemhead'),detail=node('div','detail');
+ head.append(node('div','rank',i.done?'✓':String(pending.indexOf(i)+1)));
+ detail.append(node('h3','',i.name),node('div','meta','คะแนน '+score(i)+' / 100 · จำเป็น '+i.need+' · เร่งด่วน '+i.urgency+' · อยากได้ '+i.want));
+ detail.append(node('span','tag'+(!i.done&&!plan.has(i.id)?' over':''),i.done?'ซื้อแล้ว':plan.has(i.id)?'อยู่ในแผนตามงบ':'เก็บไว้ก่อน — งบยังไม่พอ'));
+ head.append(detail,node('div','price',money(i.price)));card.append(head);
+ const actions=node('div','actions');
+ function action(label,fn){const b=node('button','',label);b.type='button';b.onclick=fn;actions.append(b)}
+ action(i.done?'ย้ายกลับลิสต์':'✓ ซื้อแล้ว',()=>{
+ if(!i.done&&i.price>state.budget&&!confirm('ราคาสูงกว่างบที่เหลือ ยืนยันว่าซื้อแล้ว? งบจะเหลือ 0 บาท'))return;
+ if(i.done){state.budget=Math.round((state.budget+(i.debited||0))*100)/100;i.debited=0}
+ else{i.debited=Math.min(state.budget,i.price);state.budget=Math.round((state.budget-i.debited)*100)/100}
+ i.done=!i.done;$('budget').value=state.budget;save();render();
+ });
+ if(!i.done)action('แก้ไข',()=>{editing=i.id;['name','price','link','need','urgency','want'].forEach(k=>$(k).value=i[k]||'');$('formtitle').textContent='แก้ไขรายการ';$('submit').textContent='บันทึกการแก้ไข';$('cancel').hidden=false;$('name').focus()});
+ action('ลบ',()=>{if(confirm('ลบรายการ “'+i.name+'” หรือไม่?')){state.items=state.items.filter(x=>x.id!==i.id);if(editing===i.id)reset();save();render()}});
+ if(safeUrl(i.link)){const a=node('a','','ดูสินค้า ↗');a.href=safeUrl(i.link);a.target='_blank';a.rel='noopener noreferrer';actions.append(a)}
+ card.append(actions);$('list').append(card);
+ });
+}
+$('itemform').onsubmit=e=>{
+ e.preventDefault();const name=$('name').value.trim(),price=Number($('price').value),link=$('link').value.trim();
+ if(!name){$('name').setCustomValidity('กรุณาใส่ชื่อของ');$('name').reportValidity();return}
+ if(link&&!safeUrl(link)){$('link').setCustomValidity('ใช้ลิงก์ http หรือ https เท่านั้น');$('link').reportValidity();return}
+ const values={name,price:Math.round(price*100)/100,link:safeUrl(link),need:Number($('need').value),urgency:Number($('urgency').value),want:Number($('want').value)};
+ if(editing){const item=state.items.find(i=>i.id===editing);if(item)Object.assign(item,values)}
+ else state.items.push({...values,id:globalThis.crypto?.randomUUID?.()||Date.now().toString(36)+Math.random().toString(36).slice(2),done:false});
+ save();reset();render();
+};
+['name','link'].forEach(k=>$(k).oninput=()=>$(k).setCustomValidity(''));
+$('cancel').onclick=reset;
+$('budget').onchange=()=>{if(!$('budget').checkValidity()||$('budget').value===''){$('budget').reportValidity();$('budget').value=state.budget;return}state.budget=Math.round(Number($('budget').value)*100)/100;save();render()};
+$('filter').onchange=render;
+render();
+</script></body></html>
